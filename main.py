@@ -59,7 +59,7 @@ def accept_package(data):
                 Текущий статус тренеровки {get_status_pulse(pulse)}.
                 ''')
 
-
+# Тесты
 package = ('11:00:01', 302, 100)
 package1 = ('11:00:02', 302, 100)
 accept_package(package)
