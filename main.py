@@ -60,6 +60,7 @@ def accept_package(data):
                 ''')
 
 
+# Тесты
 package = ('11:00:01', 302, 100)
 package1 = ('11:00:02', 302, 100)
 accept_package(package)
