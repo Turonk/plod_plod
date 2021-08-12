@@ -7,32 +7,27 @@ K_1 = 0.035  # Коэффициент для подсчета калорий
 K_2 = 0.029  # Коэффициент для подсчета калорий
 STEP_M = 0.65  # Длина шага в метрах
 
-storage_dict = {}
+storage_data = {}
 
 
 def check_correct_data(data):
     """Проверка корректности полученного пакета."""
-    if len(data) != 2:
-        print('Пакет неверной длины')
-        return False
-    if None in data:
-        print('Пакет содержит неверные данные')
+    if len(data) != 2 or None in data:
         return False
     return True
 
 
 def check_correct_time(time):
     """Проверка кореектности параметра времени."""
-    if (time not in storage_dict and
-       (not storage_dict or time > max(storage_dict))):
-        return True
-    return False
+    if storage_data and time <= max(storage_data):
+        return False
+    return True
 
 
 def get_step_day(steps):
     """Получить количество пройденных шагов за день."""
     day_steps = 0
-    for key, value in storage_dict.items():
+    for key, value in storage_data.items():
         day_steps += value
     return day_steps+steps
 
@@ -43,14 +38,14 @@ def get_distance(steps):
 
 
 def get_spent_calories(dist, current_time):
-    """Получение значения потреченных калорий."""
+    """Получить значения потраченных калорий."""
     time = current_time.hour + current_time.minute/60
     mean_speed = (dist / time)
     return (K_1*WEIGHT+(mean_speed**2//HEIGHT)*K_2*WEIGHT)*time*60
 
 
 def get_achievement(dist):
-    """Получение поздравления за пройденную дистанцию."""
+    """Получить поздравления за пройденную дистанцию."""
     if dist < 2:
         return 'Лежать тоже полезно. Главное — участие, а не победа!'
     if dist < 3.9:
@@ -60,14 +55,14 @@ def get_achievement(dist):
     return 'Отличный результат! Цель достигнута.'
 
 
-def show_on_display(time, steps, dist, calories, achiev):
+def show_message(time, steps, dist, calories, achiev):
     """Вывести на экран результаты вычислений"""
     print(f'''
 Время: {time}.
 За сегодня вы прошли {steps} шагов.
 Дистанция составила {dist:.2f} км.
 Вы сожгли {calories:.2f} ккал.
-{achiev}.
+{achiev}
         ''')
 
 
@@ -82,18 +77,18 @@ def accept_package(data):
     dist = get_distance(day_steps)
     spent_calories = get_spent_calories(dist, pack_time)
     achievement = get_achievement(dist)
-    show_on_display(pack_time, day_steps, dist,
-                    spent_calories, achievement)
+    show_message(pack_time, day_steps, dist,
+                 spent_calories, achievement)
 
-    storage_dict[pack_time] = steps
+    storage_data[pack_time] = steps
 
-    return storage_dict
+    return storage_data
 
 
 # Тесты
 package = ('2:00:01', 15000)
-package1 = ('11:00:02', 302)
+package1 = ('2:00:02', 302)
 accept_package(package)
-print(storage_dict)
+print(storage_data)
 accept_package(package1)
-print(storage_dict)
+print(storage_data)
