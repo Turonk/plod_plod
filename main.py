@@ -33,7 +33,7 @@ def get_step_day(steps):
     """Получить количество пройденных шагов за день."""
     day_steps = 0
     for key, value in storage_dict.items():
-        day_steps += value['steps']
+        day_steps += value
     return day_steps+steps
 
 
@@ -53,13 +53,10 @@ def get_achievement(dist):
     """Получение поздравления за пройденную дистанцию."""
     if dist < 2:
         return 'Лежать тоже полезно. Главное — участие, а не победа!'
-
     if dist < 3.9:
         return 'Маловато, но завтра наверстаем!'
-
     if dist < 6.5:
         return 'Неплохо! День был продуктивным.'
-
     return 'Отличный результат! Цель достигнута.'
 
 
@@ -88,7 +85,7 @@ def accept_package(data):
     show_on_display(pack_time, day_steps, dist,
                     spent_calories, achievement)
 
-    storage_dict[pack_time] = {'steps': steps}
+    storage_dict[pack_time] = steps
 
     return storage_dict
 
@@ -97,4 +94,6 @@ def accept_package(data):
 package = ('2:00:01', 15000)
 package1 = ('11:00:02', 302)
 accept_package(package)
+print(storage_dict)
 accept_package(package1)
+print(storage_dict)
