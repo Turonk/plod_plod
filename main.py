@@ -91,16 +91,16 @@ def accept_package(data):
 
 
 # Тесты
-package_0 = ('2:00:01', 15000)
-package_1 = (None, 3211)
-package_2 = ('9:36:02', 302)
-package_3 = ('9:36:02', 9000)
-package_4 = ('8:01:02', 7600)
+if __name__ == '__main__':
+    package_0 = ('2:00:01', 15000)
+    package_1 = (None, 3211)
+    package_2 = ('9:36:02', 302)
+    package_3 = ('9:36:02', 9000)
+    package_4 = ('8:01:02', 7600)
 
-
-accept_package(package_0)
-accept_package(package_1)
-accept_package(package_2)
-accept_package(package_3)
-accept_package(package_4)
+    accept_package(package_0)
+    accept_package(package_1)
+    accept_package(package_2)
+    accept_package(package_3)
+    accept_package(package_4)
 
