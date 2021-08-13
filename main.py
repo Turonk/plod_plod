@@ -92,9 +92,9 @@ def accept_package(data):
 
 # Тесты
 if __name__ == '__main__':
-    package_0 = ('2:00:01', 15000)
+    package_0 = ('2:00:01', 505)
     package_1 = (None, 3211)
-    package_2 = ('9:36:02', 302)
+    package_2 = ('9:36:02', 15000)
     package_3 = ('9:36:02', 9000)
     package_4 = ('8:01:02', 7600)
 
