@@ -59,7 +59,7 @@ def show_message(time, steps, dist, calories, achiev):
     """Вывести на экран результаты вычислений"""
     print(f'''
 Время: {time}.
-За сегодня вы прошли {steps} шагов.
+Количество шагов за сегодня: {steps}.
 Дистанция составила {dist:.2f} км.
 Вы сожгли {calories:.2f} ккал.
 {achiev}
