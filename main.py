@@ -18,7 +18,7 @@ def check_correct_data(data):
 
 
 def check_correct_time(time):
-    """Проверка кореектности параметра времени."""
+    """Проверка корректности параметра времени."""
     if storage_data and time <= max(storage_data):
         return False
     return True
@@ -26,9 +26,7 @@ def check_correct_time(time):
 
 def get_step_day(steps):
     """Получить количество пройденных шагов за день."""
-    day_steps = 0
-    for key, value in storage_data.items():
-        day_steps += value
+    day_steps = sum(value for key, value in storage_data.items())
     return day_steps+steps
 
 
@@ -41,7 +39,9 @@ def get_spent_calories(dist, current_time):
     """Получить значения потраченных калорий."""
     time = current_time.hour + current_time.minute/60
     mean_speed = (dist / time)
-    return (K_1*WEIGHT+(mean_speed**2//HEIGHT)*K_2*WEIGHT)*time*60
+    return (
+        (K_1 * WEIGHT + (mean_speed ** 2 // HEIGHT) * K_2 * WEIGHT) * time * 60
+    )
 
 
 def get_achievement(dist):
@@ -68,10 +68,15 @@ def show_message(time, steps, dist, calories, achiev):
 
 def accept_package(data):
     """Обработать пакет данных."""
+
+    if not check_correct_data(data):
+        return 'Некорректный пакет'
+
     time, steps = data
     pack_time = dt.datetime.strptime(time, FORMAT).time()
-    if not(check_correct_data(data) and check_correct_time(pack_time)):
-        return 'Некорректный пакет'
+
+    if not check_correct_time(pack_time):
+        return 'Некорректное значение времени'
 
     day_steps = get_step_day(steps)
     dist = get_distance(day_steps)
@@ -86,9 +91,16 @@ def accept_package(data):
 
 
 # Тесты
-package = ('2:00:01', 15000)
-package1 = ('2:00:02', 302)
-accept_package(package)
-print(storage_data)
-accept_package(package1)
-print(storage_data)
+package_0 = ('2:00:01', 15000)
+package_1 = (None, 3211)
+package_2 = ('9:36:02', 302)
+package_3 = ('9:36:02', 9000)
+package_4 = ('8:01:02', 7600)
+
+
+accept_package(package_0)
+accept_package(package_1)
+accept_package(package_2)
+accept_package(package_3)
+accept_package(package_4)
+
