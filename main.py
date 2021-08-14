@@ -26,7 +26,7 @@ def check_correct_time(time):
 
 def get_step_day(steps):
     """Получить количество пройденных шагов за день."""
-    day_steps = sum(value for key, value in storage_data.items())
+    day_steps = sum(value for value in storage_data.values())
     return day_steps+steps
 
 
